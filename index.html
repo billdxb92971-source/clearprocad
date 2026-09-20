@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClearPro CAD - AI Dental Designs</title>
+    <meta name="description" content="ClearPro CAD offers AI-proposed dental designs. Simple, Complex, and Advanced design tiers.">
+    <link rel="canonical" href="https://clearprocad.com/" />
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="ClearPro CAD - AI Dental Designs">
+    <meta property="og:description" content="ClearPro CAD offers AI-proposed dental designs. Simple, Complex, and Advanced design tiers.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://clearprocad.com/">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans">
+    <header class="bg-blue-900 text-white p-6 shadow-md">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">ClearPro CAD</h1>
+            <p class="text-sm">Advanced AI Dental Designs</p>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto py-12 px-6">
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-10 text-gray-800">Select Your Design Tier</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Simple -->
+                <div class="bg-white rounded-lg shadow-lg p-8 border border-gray-200 flex flex-col cursor-pointer hover:border-blue-500 transition-colors" onclick="selectTier('Simple', 25)">
+                    <h3 class="text-xl font-semibold mb-2 text-center text-blue-900">Simple</h3>
+                    <p class="text-4xl font-bold text-center mb-6">$25</p>
+                    <ul class="text-gray-600 mb-8 space-y-2 flex-grow">
+                        <li>✓ Single crowns</li>
+                        <li>✓ Basic splints</li>
+                        <li>✓ Standard turnaround</li>
+                    </ul>
+                    <button class="w-full py-2 bg-blue-100 text-blue-900 rounded font-semibold hover:bg-blue-200 pointer-events-none">Select Simple</button>
+                </div>
+                <!-- Complex -->
+                <div class="bg-white rounded-lg shadow-lg p-8 border-2 border-blue-500 flex flex-col cursor-pointer relative" onclick="selectTier('Complex', 50)">
+                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-bold">Most Popular</div>
+                    <h3 class="text-xl font-semibold mb-2 text-center text-blue-900">Complex</h3>
+                    <p class="text-4xl font-bold text-center mb-6">$50</p>
+                    <ul class="text-gray-600 mb-8 space-y-2 flex-grow">
+                        <li>✓ Bridges (up to 3 units)</li>
+                        <li>✓ Smile design (basic)</li>
+                        <li>✓ Priority turnaround</li>
+                    </ul>
+                    <button class="w-full py-2 bg-blue-600 text-white rounded font-semibold hover:bg-blue-700 pointer-events-none">Select Complex</button>
+                </div>
+                <!-- Advanced -->
+                <div class="bg-white rounded-lg shadow-lg p-8 border border-gray-200 flex flex-col cursor-pointer hover:border-blue-500 transition-colors" onclick="selectTier('Advanced', 125)">
+                    <h3 class="text-xl font-semibold mb-2 text-center text-blue-900">Advanced</h3>
+                    <p class="text-4xl font-bold text-center mb-6">$125</p>
+                    <ul class="text-gray-600 mb-8 space-y-2 flex-grow">
+                        <li>✓ Full arch cases</li>
+                        <li>✓ Implant surgical guides</li>
+                        <li>✓ Complex smile design</li>
+                    </ul>
+                    <button class="w-full py-2 bg-blue-100 text-blue-900 rounded font-semibold hover:bg-blue-200 pointer-events-none">Select Advanced</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-8 border border-gray-200">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Checkout</h2>
+            
+            <div class="mb-6 p-4 bg-gray-50 rounded border border-gray-100 flex justify-between items-center">
+                <span class="text-gray-700 font-medium" id="selected-tier-name">Please select a tier</span>
+                <span class="text-xl font-bold text-gray-900" id="selected-tier-price">$0</span>
+            </div>
+
+            <div class="mb-6">
+                <label class="flex items-start space-x-3 cursor-pointer">
+                    <input type="checkbox" id="tos-checkbox" class="mt-1 h-5 w-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500" onchange="toggleCheckout()">
+                    <span class="text-sm text-gray-700">
+                        I agree to the Terms of Service. 
+                        <strong>ClearPro CAD designs are AI proposals. Final clinical review/liability rest with the dentist/lab. ClearPro assumes no liability.</strong>
+                    </span>
+                </label>
+            </div>
+
+            <button id="place-order-btn" class="w-full py-3 bg-gray-400 text-white rounded font-bold text-lg cursor-not-allowed transition-colors" disabled>
+                Place Order
+            </button>
+            <p id="order-message" class="mt-4 text-center text-green-600 font-medium hidden">Order placed successfully!</p>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-gray-400 py-8 mt-12 text-center text-sm">
+        <p>&copy; 2026 ClearPro Tech. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let currentTier = null;
+        let currentPrice = 0;
+
+        function selectTier(name, price) {
+            currentTier = name;
+            currentPrice = price;
+            
+            document.getElementById('selected-tier-name').textContent = name + ' Tier';
+            document.getElementById('selected-tier-price').textContent = '$' + price;
+            
+            toggleCheckout();
+        }
+
+        function toggleCheckout() {
+            const checkbox = document.getElementById('tos-checkbox');
+            const btn = document.getElementById('place-order-btn');
+            
+            if (checkbox.checked && currentTier !== null) {
+                btn.disabled = false;
+                btn.classList.remove('bg-gray-400', 'cursor-not-allowed');
+                btn.classList.add('bg-blue-600', 'hover:bg-blue-700', 'cursor-pointer');
+            } else {
+                btn.disabled = true;
+                btn.classList.add('bg-gray-400', 'cursor-not-allowed');
+                btn.classList.remove('bg-blue-600', 'hover:bg-blue-700', 'cursor-pointer');
+            }
+        }
+
+        document.getElementById('place-order-btn').addEventListener('click', function() {
+            if (!this.disabled) {
+                document.getElementById('order-message').classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
